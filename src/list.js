@@ -5,7 +5,7 @@ export class ListCreation{
     }
 
     get listName(){
-        return this.listName;
+        return this._listName;
     }
 
     set listName(newListName){
@@ -16,7 +16,8 @@ export class ListCreation{
         this._items.push(item);
     }
 
-    listRemove(){
-        
+    listRemove(item){
+        const index = this._items.indexOf(item);
+        this._items.splice(index,1);
     }
 }
