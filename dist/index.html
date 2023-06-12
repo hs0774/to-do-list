@@ -13,23 +13,29 @@
         <div class="sideAndMain">
             <div class="side">
                 <ul class="timeline">
-                   <li><button>Home</button></li>
-                   <li><button>Today</button></li>
-                   <li><button>This Week</button></li>
+                   <li><button class="sideBtn home">Home</button></li>
+                   <li><button class="sideBtn today">Today</button></li>
+                   <li><button class="sideBtn week">This Week</button></li>
                 </ul>
                 <h1>Projects</h1>
-                  <ul class="JS-Projects">
-
-                  </ul>
-                  <button><h6>Add Projects</h6></button>
+                  <div class="JS-Projects">
+                    <div class="projectTitle"><div>Title</div>
+                        <div class="right-side">
+                            <div>Edit</div>
+                        <button class="x">x</button></div>
+                        </div>
+                    </div>
+                  <div class="todobtn">
+                    <div> <button class="todobtn">Add Projects</button></div>
+                  </div>
             </div>
             <div class="main">
                 <h1 class="middle">Home</h1>
                 <div class="items-box">
                     <h1>Project</h1>
-                    <div class="items">
+                     <div class="items">
                         <input type="checkbox" id="checkboxId" name="checkboxName" value="checkboxValue">
-                        <!-- <label for="checkboxId">Title</label> -->
+
                         <div class="Title">Task</div>
                         <div class="DueDate">Tomorrow</div>
                         <div>Edit</div>
@@ -37,7 +43,7 @@
                     </div>
                     <div class="items">
                         <input type="checkbox" id="checkboxId" name="checkboxName" value="checkboxValue">
-                        <!-- <label for="checkboxId">Title</label> -->
+
                         <div class="Title">Task</div>
                         <div class="DueDate">Tomorrow</div>
                         <div>Edit</div>
@@ -45,11 +51,14 @@
                     </div>
                     <div class="items">
                         <input type="checkbox" id="checkboxId" name="checkboxName" value="checkboxValue">
-                        <!-- <label for="checkboxId">Title</label> -->
+
                         <div class="Title">Task</div>
                         <div class="DueDate">Tomorrow</div>
                         <div>Edit</div>
                         <button class="x">x</button>
+                    </div> 
+                    <div class="todobtn">
+                        <button class="btn">Add todo</button>
                     </div>
             </div>
         </div>
