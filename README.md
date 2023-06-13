@@ -22,11 +22,19 @@ im creating a decent looking barebones skeleton that will be responsive to js
 the projects section on the side bar has a dummy project and a button to add more projects underneath
 ill create an input option on top of add projects button under the title edit x div 
 to add more projects and toggle whenver submitted
-i added a list item button under the list items as well, 
+i added a todo item button under the list items as well, 
+
+ a modal with a title, description,priority level,due date 
+
 next i want to make the edit and x button spaced better on the side bar 
 i want the calendar edit and x button next to eahc other on the right side of the lsit item,
 
 after that ill go back to javscript to work on the logic to make the page responsive,final styling after thats done 
+
+
+//6/13/23 1:45pm
+//everything from the 320pm update  from yesterday is done, so now its time to go back to the javascript to make the page responsive and then final styling to make it all look good. 
+
 
 
 
