@@ -108,13 +108,14 @@ body{
 .submit:hover {
     background-color: #45a049;
 }
-.form{
+
+
+/* .form{
     display: none;
-}
+} */
 
 .modal {
-    display: none;
-    position: fixed;
+    position: fixed; 
     left: 0;
     top: 0;
     width: 100%;
@@ -122,6 +123,9 @@ body{
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4); 
   }
+.hidden{
+    display: none; 
+}
   
 .modal-content {
     background-color: rgb(254, 254, 254);
