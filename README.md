@@ -35,6 +35,40 @@ after that ill go back to javscript to work on the logic to make the page respon
 //6/13/23 1:45pm
 //everything from the 320pm update  from yesterday is done, so now its time to go back to the javascript to make the page responsive and then final styling to make it all look good. 
 
+6/13/23 3:15pm
+/the add project and add todo buttons close and open the submission form/modals that are relevant to them/
+
+next i want add project form to create another title div on top of it and i want the todo submission form to add a task div on top of it. 
+    i also have to add these to a respective array,
+
+then after that i will make the edit and x buttons, edit content on the display and the array  or delete content on the display  and in the array. 
+
+then i will make home display all items on the array, today will display items due today and this week will display items within the week. 
+
+i think the edit buttons should open up the input form or modal but with the info on that specific div.
+
+also project textcontent should be the relevent topic, either a specific project or the home,today or week section. 
+
+ after all this is done the page should be styled to look good 
+    as well as change buttons to svg pic/icons and add one on top. 
+
+6/14/23 1am
+
+/the add project form input is responsive and adds divs as well, have to remember to push it into an array though might not be necessary/
+
+i want the todo submission form to add a task div on top of it. 
+    i also have to add these to the array,
+
+then after that i will make edit button, edit content on the display and the array  or delete content on the display  and in the array for the case of the x  
+
+then i will make home display all items on the array, today will display items due today and this week will display items within the week. 
+
+i think the edit buttons should open up the input form or modal but with the info on that specific div.
+
+also project textcontent should be the relevent topic, either a specific project or the home,today or week section. 
+
+ after all this is done the page should be styled to look good 
+    as well as change buttons to svg pic/icons and add one on top. 
 
 
 
