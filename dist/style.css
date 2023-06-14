@@ -47,7 +47,7 @@ body{
     justify-content: space-between;
     align-items: center;
     border-bottom: solid 3px red;
-    border-top: solid 3px red;
+    /* border-top: solid 3px red; */
     height: 60px;
     margin-right: 16px; 
 }
