@@ -6,7 +6,6 @@ export class Item {
         this._description=description;
         this._dueDate=dueDate;
         this._priority=priority; //low, med,high
-        // this._checked=checked; // true false 
         this._id = uuidv4().slice(0,8);
     } 
 

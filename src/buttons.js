@@ -2,12 +2,32 @@ import { Item } from "./items";
 import { ListCreation } from "./list";
 export function buttons(){
 
+    const projectz =[];
     //modal opening and closing 
     const toDoAdd = document.querySelector('.btn');
     const modal = document.querySelector('.modal');
     const close = document.querySelector('.close');
-    // const modalSubmit = document.querySelector('.ModalSubmit');
+    const home =document.querySelector('.home');
+    const today= document.querySelector('.today');
+    const week= document.querySelector('.week');
+    const currentList= document.querySelector('.middle');
 
+    home.addEventListener('click',function(){
+        currentList.textContent='Home';
+        toDoAdd.disabled = true;
+    });
+
+    today.addEventListener('click',function(){
+        currentList.textContent='Today';
+        toDoAdd.disabled = true;
+    });
+
+    week.addEventListener('click',function(){
+        currentList.textContent='This Week';
+        toDoAdd.disabled = true;
+    });
+
+    toDoAdd.disabled = true;
     toDoAdd.addEventListener('click',function(){
         modal.classList.toggle('hidden');
     });
@@ -15,11 +35,6 @@ export function buttons(){
     close.addEventListener('click',function(){
         modal.classList.toggle('hidden');
     })
-
-    // modalSubmit.addEventListener('click',function(){
-    //     modal.classList.toggle('hidden');
-    // });  not sure if needed but will leave it incase it is 
-
 
     //add project open and closing 
     const addProject = document.querySelector('.todoBtnn');
@@ -34,10 +49,7 @@ export function buttons(){
         }
       });
 
-    // submit.addEventListener('click',function(){
-    //     form.classList.toggle('hidden');
-    // }); not sure if needed but will leave incase 
-    
+
     //form submission for the side 
     const submitSide = document.querySelector('.submit');
     submitSide.addEventListener('click',function(e){
@@ -45,6 +57,7 @@ export function buttons(){
         const projectTitle = document.getElementById('project-title');
         const projectInput = projectTitle.value.trim();
         if(projectInput != ''){
+        // currentList.textContent=projectInput;
         projectTitle.value='';
         projectCreation(projectInput);
         form.classList.toggle('hidden');
@@ -52,12 +65,13 @@ export function buttons(){
         else {
             form.classList.toggle('hidden');
         }
-        toDoAdd.disabled = false;
+        // toDoAdd.disabled = false;
     });
 
     //project creation
     const projectCreation = function(projectInput){
         const newlist = new ListCreation(projectInput);
+        projectz.push(newlist);
         ProjectDisplay(newlist);
     }
 
@@ -87,13 +101,36 @@ export function buttons(){
         const jsproj = document.querySelector(`[data-id='${newlist.id}']`);
         xSideR.addEventListener('click',function(){
              jsproj.remove();
+             toDoAdd.disabled = true;
         });  
+
+        projectDiv.addEventListener('click', function() {
+                setCurrentProject(newlist);
+        });
+            
+
+
+    }
+    const setCurrentProject = function(project) {
+        currentList.textContent = project.listName;
+        toDoAdd.disabled = false;
+        updateListItems(project);
+    }
+    
+    const updateListItems = function(project) {
+        const itemsContainer = document.getElementById('itemsContainer');
+        itemsContainer.innerHTML = ''; // Clear existing items
+    
+        // Iterate through the project's items and display them
+        project._items.forEach(item => {
+            itemDisplay(item);
+        });
     }
 
 //////////////////////////////////////////////////////////////////////////////
 
 const ModalSubmit = document.querySelector('.ModalSubmit');
-ModalSubmit.addEventListener('click', function(e) {
+const sub = ModalSubmit.addEventListener('click', function(e) {
     e.preventDefault();
     modal.classList.toggle('hidden');
     const title = document.getElementById('title');
@@ -108,21 +145,24 @@ ModalSubmit.addEventListener('click', function(e) {
     description.value='';
     priority.value='';
     dueDate.value='';
-    itemCreation(titleValue, descriptionValue, priorityValue, dueDateValue);
+    itemCreation(titleValue, descriptionValue, priorityValue, dueDateValue, currentList.textContent);
 
 });
 
-const itemCreation = function(titleValue, descriptionValue, priorityValue, dueDateValue) {
+const itemCreation = function(titleValue, descriptionValue, priorityValue, dueDateValue,projectName) {
     const newItem = new Item(titleValue, descriptionValue, priorityValue, dueDateValue);
-    itemDisplay(newItem);
+    const currentProject = findProjectByName(projectName);
+    if (currentProject) {
+      currentProject.listPush(newItem);
+      itemDisplay(newItem);
+    }
 }
 
 const itemDisplay = function(newItem) {
-
     const itemsContainer = document.getElementById('itemsContainer');
     const itemDiv = document.createElement('div');
     itemDiv.classList.add('items');
-    itemDiv.setAttribute('data-id',newItem.id);
+    itemDiv.setAttribute('data-id', newItem.id);
     itemsContainer.append(itemDiv);
     const listLeft = document.createElement('div');
     listLeft.classList.add('listLeft');
@@ -152,23 +192,17 @@ const itemDisplay = function(newItem) {
     listRight.append(xButton);
 
     const jsitem = document.querySelector(`[data-id='${newItem.id}']`);
-    xButton.addEventListener('click',function(){
-         jsitem.remove();
-    }); 
-
+    xButton.addEventListener('click', function() {
+        const currentProject = findProjectByName();
+        if (currentProject) {
+            currentProject.listRemove(newItem);
+        }
+        jsitem.remove();
+    });
 }
 
+ 
+const findProjectByName = function(projectName) {
+    return projectz.find(project => project.listName === projectName);
+  }
 }
-/* <div class="itemsContainer">
-<div class="items">
-  <div class="listLeft">
-      <div class="Title">Task</div>
-  </div>
-  <div class="listRight">
-      <div class="priority">High</div>
-      <div class="dueDate">6/15/23</div>
-      <button class="edit">Edit</button>
-      <button class="xMain">x</button>
-  </div>
-</div>
-</div> */

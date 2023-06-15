@@ -70,6 +70,8 @@ also project textcontent should be the relevent topic, either a specific project
  after all this is done the page should be styled to look good 
     as well as change buttons to svg pic/icons and add one on top. 
 
+6/14/23 6pm 
+
 
 
 
