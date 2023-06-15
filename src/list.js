@@ -25,7 +25,9 @@ export class ListCreation{
 
     listRemove(item){
         const index = this._items.indexOf(item);
+        if(index !==-1){
         this._items.splice(index,1);
+        }
     }
 
 }

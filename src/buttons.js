@@ -57,7 +57,6 @@ export function buttons(){
         const projectTitle = document.getElementById('project-title');
         const projectInput = projectTitle.value.trim();
         if(projectInput != ''){
-        // currentList.textContent=projectInput;
         projectTitle.value='';
         projectCreation(projectInput);
         form.classList.toggle('hidden');
@@ -65,7 +64,6 @@ export function buttons(){
         else {
             form.classList.toggle('hidden');
         }
-        // toDoAdd.disabled = false;
     });
 
     //project creation
@@ -119,12 +117,12 @@ export function buttons(){
     
     const updateListItems = function(project) {
         const itemsContainer = document.getElementById('itemsContainer');
-        itemsContainer.innerHTML = ''; // Clear existing items
+        itemsContainer.innerHTML=''; // Clear existing items
     
         // Iterate through the project's items and display them
         project._items.forEach(item => {
             itemDisplay(item);
-        });
+          });
     }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -193,7 +191,7 @@ const itemDisplay = function(newItem) {
 
     const jsitem = document.querySelector(`[data-id='${newItem.id}']`);
     xButton.addEventListener('click', function() {
-        const currentProject = findProjectByName();
+        const currentProject = findProjectByName(currentList.textContent);
         if (currentProject) {
             currentProject.listRemove(newItem);
         }
