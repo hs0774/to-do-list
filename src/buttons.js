@@ -2,7 +2,7 @@ import { Item } from "./items";
 import { ListCreation } from "./list";
 export function buttons(){
 
-    const projectz =[];
+    const projectz =[];  //array to store projects 
     //modal opening and closing 
     const toDoAdd = document.querySelector('.btn');
     const modal = document.querySelector('.modal');
@@ -15,6 +15,16 @@ export function buttons(){
     home.addEventListener('click',function(){
         currentList.textContent='Home';
         toDoAdd.disabled = true;
+
+        const itemsContainer = document.getElementById('itemsContainer');
+        itemsContainer.innerHTML=''; // Clear existing items
+
+        projectz.forEach(function(project){
+            project._items.forEach(function(item){
+                itemDisplay(item);
+            });
+        });
+        console.log(projectz);
     });
 
     today.addEventListener('click',function(){
@@ -42,21 +52,28 @@ export function buttons(){
 
    addProject.addEventListener('click', function() {
         form.classList.toggle('hidden');
-        if (form.classList.contains('hidden')) {
+        if (form.classList.contains('hidden') {
           toDoAdd.disabled = false;
         } else {
-          toDoAdd.disabled = true;
+           toDoAdd.disabled = true;
         }
       });
 
-
+    
+    const checkSameName = function(projectInput){
+        return projectz.some(function(project){
+            return project.listName===projectInput;
+        });
+    }
+    
     //form submission for the side 
     const submitSide = document.querySelector('.submit');
     submitSide.addEventListener('click',function(e){
         e.preventDefault();
         const projectTitle = document.getElementById('project-title');
         const projectInput = projectTitle.value.trim();
-        if(projectInput != ''){
+       const sameName = checkSameName(projectInput);
+        if(projectInput !== '' && !sameName){
         projectTitle.value='';
         projectCreation(projectInput);
         form.classList.toggle('hidden');
@@ -80,7 +97,8 @@ export function buttons(){
         projectDiv.classList.add('projectTitle');
         const Jsprojects = document.createElement('div');
         Jsprojects.classList.add('JS-Projects');
-        Jsprojects.setAttribute('data-id',newlist.id);
+       // Jsprojects.setAttribute('data-id',newlist.id);
+       Jsprojects.classList.add(`${newlist.listName}`);
         projectContainer.append(Jsprojects);
         Jsprojects.append(projectDiv);
         const projectInputDiv = document.createElement('div');
@@ -96,11 +114,23 @@ export function buttons(){
         rightSide.append(xSideR);
 
         //remove projects from side bar 
-        const jsproj = document.querySelector(`[data-id='${newlist.id}']`);
-        xSideR.addEventListener('click',function(){
-             jsproj.remove();
-             toDoAdd.disabled = true;
-        });  
+        const jsproj = document.querySelector(`.${newlist.listName}`);
+       
+        // const checkProjectList = function() {
+        //     const currentProject = findProjectByName(newlist.id);
+        //     toDoAdd.disabled = projectz.length === 0 || !currentProject;
+        //   };
+
+        xSideR.addEventListener('click', function() {
+            jsproj.remove();
+            const index = newlist.listName;
+            for (let i = projectz.length - 1; i >= 0; i--) {
+                if (projectz[i].listName === index) {
+                    projectz.splice(i, 1);
+                }
+            }
+        });
+        
 
         projectDiv.addEventListener('click', function() {
                 setCurrentProject(newlist);
@@ -148,10 +178,19 @@ const sub = ModalSubmit.addEventListener('click', function(e) {
 });
 
 const itemCreation = function(titleValue, descriptionValue, priorityValue, dueDateValue,projectName) {
+    let projectId;
+    projectz.forEach(function(project) {
+        if (project.listName === projectName) {
+          projectId = project.id;
+        }
+      });
     const newItem = new Item(titleValue, descriptionValue, priorityValue, dueDateValue);
-    const currentProject = findProjectByName(projectName);
+    newItem.id=projectId;
+
+    const currentProject = findProjectByName(newItem.id);
     if (currentProject) {
       currentProject.listPush(newItem);
+    //   newItem.id=currentProject.id;
       itemDisplay(newItem);
     }
 }
@@ -160,7 +199,7 @@ const itemDisplay = function(newItem) {
     const itemsContainer = document.getElementById('itemsContainer');
     const itemDiv = document.createElement('div');
     itemDiv.classList.add('items');
-    itemDiv.setAttribute('data-id', newItem.id);
+    itemDiv.setAttribute('data-id', newItem.id2);
     itemsContainer.append(itemDiv);
     const listLeft = document.createElement('div');
     listLeft.classList.add('listLeft');
@@ -189,9 +228,10 @@ const itemDisplay = function(newItem) {
     listRight.append(editButton);
     listRight.append(xButton);
 
-    const jsitem = document.querySelector(`[data-id='${newItem.id}']`);
+
+    const jsitem = document.querySelector(`[data-id='${newItem.id2}']`);
     xButton.addEventListener('click', function() {
-        const currentProject = findProjectByName(currentList.textContent);
+        const currentProject = findProjectByName(newItem.id);
         if (currentProject) {
             currentProject.listRemove(newItem);
         }
@@ -199,8 +239,9 @@ const itemDisplay = function(newItem) {
     });
 }
 
- 
 const findProjectByName = function(projectName) {
-    return projectz.find(project => project.listName === projectName);
+    return projectz.find(project => project.id === projectName);
   }
 }
+
+//sort by date and edit 
