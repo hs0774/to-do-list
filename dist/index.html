@@ -95,6 +95,31 @@
         </form>
     </div>
     </div>
+    <div id="Emodal" class="Emodal hidden">
+        <div class="Emodal-content">
+            <span class="Eclose">&times;</span>
+            <h2>Edit Task</h2>
+            <form>
+            <label for="Etitle">Title:</label>
+            <input type="text" id="Etitle" required>
+            
+            <label for="Edescription">Description:</label>
+            <textarea id="Edescription" required></textarea>
+            
+            <label for="Epriority">Priority:</label>
+            <select id="Epriority" required>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+            
+            <label for="EdueDate">Due Date:</label>
+            <input type="date" id="EdueDate" required>
+            
+            <button class="EditSubmit" type="submit">Edit</button>
+            </form>
+        </div>
+        </div>
 
     <script src="main.js"></script>
 </body>

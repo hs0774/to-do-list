@@ -4,7 +4,7 @@ export class ListCreation{
     constructor(listName){
         this._listName = listName;
         this._items=[];
-        this._id = uuidv4().slice(0,8);
+        this._id = uuidv4().replace(/[^a-z]/gi, '').slice(0,10);
     }
 
     get listName(){

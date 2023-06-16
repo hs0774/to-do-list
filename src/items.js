@@ -6,8 +6,8 @@ export class Item {
         this._description=description;
         this._dueDate=dueDate;
         this._priority=priority; //low, med,high
-        this._id = id; //= uuidv4().slice(0,8);
-        this._id2= uuidv4().slice(0,8);
+        this._id = id;
+        this._id2= uuidv4().replace(/[^a-z]/gi, '').slice(0,10);
     } 
 
     //getters
@@ -28,6 +28,9 @@ export class Item {
     // }
     get id(){
         return this._id;
+    }
+    get id2(){
+        return this._id2;
     }
 
     //setters
