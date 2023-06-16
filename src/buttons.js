@@ -1,8 +1,12 @@
 import { Item } from "./items";
 import { ListCreation } from "./list";
+import { format, compareAsc } from 'date-fns'
+
+
 export function buttons(){
 
     const projectz =[];  //array to store projects 
+    
     //modal opening and closing 
     const toDoAdd = document.querySelector('.btn');
     const modal = document.querySelector('.modal');
@@ -15,10 +19,7 @@ export function buttons(){
     home.addEventListener('click',function(){
         currentList.textContent='Home';
         toDoAdd.disabled = true;
-
-        const itemsContainer = document.getElementById('itemsContainer');
-        itemsContainer.innerHTML=''; // Clear existing items
-
+        clearMainDiv();
         projectz.forEach(function(project){
             project._items.forEach(function(item){
                 itemDisplay(item);
@@ -27,14 +28,53 @@ export function buttons(){
         console.log(projectz);
     });
 
+
+    week.addEventListener('click', function() {
+            currentList.textContent = 'This week';
+            toDoAdd.disabled = true;
+            clearMainDiv();
+          
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            const todayy = `${month}/${day}`;
+          
+            const weekEnd = new Date(today);
+            weekEnd.setDate(weekEnd.getDate() + 6);
+            const week = weekEnd.getDate();
+            const weeky = `${month}/${String(week).padStart(2, '0')}`;
+          
+            projectz.forEach(function(project) {
+              project._items.forEach(function(item) {
+                const dueDate = new Date(item.dueDate);
+                const diffInDays = Math.floor((dueDate - today) / (1000 * 60 * 60 * 24)); // Difference in days
+          
+                if (diffInDays >= 0 && diffInDays <= 7) {
+                  itemDisplay(item);
+                }
+              });
+            });
+          });
+          
+
     today.addEventListener('click',function(){
         currentList.textContent='Today';
         toDoAdd.disabled = true;
-    });
-
-    week.addEventListener('click',function(){
-        currentList.textContent='This Week';
-        toDoAdd.disabled = true;
+        clearMainDiv();
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        const todayy = `${month}/${day-1}/${year}`;
+        projectz.forEach(function(project){
+            project._items.forEach(function(item){
+                console.log(item.dueDate)
+                if(item.dueDate==todayy){
+                    itemDisplay(item);
+                }
+            });
+        });
     });
 
     toDoAdd.disabled = true;
@@ -52,11 +92,12 @@ export function buttons(){
 
    addProject.addEventListener('click', function() {
         form.classList.toggle('hidden');
-        if (form.classList.contains('hidden') {
-          toDoAdd.disabled = false;
-        } else {
-           toDoAdd.disabled = true;
-        }
+        // if (form.classList.contains('hidden')) {
+        //   toDoAdd.disabled = false;
+        // } 
+        // else {
+        //    toDoAdd.disabled = true;
+        // }
       });
 
     
@@ -121,7 +162,8 @@ export function buttons(){
         //     toDoAdd.disabled = projectz.length === 0 || !currentProject;
         //   };
 
-        xSideR.addEventListener('click', function() {
+        xSideR.addEventListener('click', function(e) {
+            e.stopPropagation();
             jsproj.remove();
             const index = newlist.listName;
             for (let i = projectz.length - 1; i >= 0; i--) {
@@ -134,6 +176,7 @@ export function buttons(){
 
         projectDiv.addEventListener('click', function() {
                 setCurrentProject(newlist);
+                toDoAdd.disabled = false;
         });
             
 
@@ -148,7 +191,7 @@ export function buttons(){
     const updateListItems = function(project) {
         const itemsContainer = document.getElementById('itemsContainer');
         itemsContainer.innerHTML=''; // Clear existing items
-    
+   
         // Iterate through the project's items and display them
         project._items.forEach(item => {
             itemDisplay(item);
@@ -168,7 +211,7 @@ const sub = ModalSubmit.addEventListener('click', function(e) {
     const titleValue = title.value;
     const descriptionValue = description.value;
     const priorityValue = priority.value;
-    const dueDateValue = dueDate.value;
+    const dueDateValue = dateString(dueDate.value);
     title.value='';
     description.value='';
     priority.value='';
@@ -184,7 +227,7 @@ const itemCreation = function(titleValue, descriptionValue, priorityValue, dueDa
           projectId = project.id;
         }
       });
-    const newItem = new Item(titleValue, descriptionValue, priorityValue, dueDateValue);
+    const newItem = new Item(titleValue, descriptionValue,dueDateValue,priorityValue);
     newItem.id=projectId;
 
     const currentProject = findProjectByName(newItem.id);
@@ -244,4 +287,13 @@ const findProjectByName = function(projectName) {
   }
 }
 
-//sort by date and edit 
+const clearMainDiv = function(){
+    const itemsContainer = document.getElementById('itemsContainer');
+        itemsContainer.innerHTML=''; // Clear existing items
+}
+//sort by date and edit button
+
+const dateString = function(dueDateValue){
+    const date = new Date(dueDateValue);
+    return format(date, 'MM/dd/yyyy');
+}
