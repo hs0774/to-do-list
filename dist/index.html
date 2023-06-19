@@ -9,60 +9,50 @@
 </head>
 <body>
     <div class="content">
-        <div class="header">To Do</div>
+        <div class="header">
+            <img class="top-icon" src="images/calendar-check.svg">To Do</div>
         <div class="sideAndMain">
             <div class="side">
                 <ul class="timeline">
-                   <li><button class="sideBtn home">Home</button></li>
-                   <li><button class="sideBtn today">Today</button></li>
-                   <li><button class="sideBtn week">This Week</button></li>
+                   <li>
+                    <div class="svg">
+                        <h2 class="sideBtn home">
+                        <img class="icon" src="images/inbox.svg" alt="SVG Icon">Home</h2>
+                    </div>
+                   </li>
+                   <li>
+                    <div class="svg">
+                        <h2 class="sideBtn today">
+                        <img class="icon" src="images/inbox.svg" alt="SVG Icon">Today</h2>
+                    </div>
+                   </li>
+                   <li>
+                    <div class="svg">
+                        <h2 class="sideBtn week">
+                        <img class="icon" src="images/inbox.svg" alt="SVG Icon">This Week</h2>
+                    </div>
+                   </li>
                 </ul>
                 <h1>Projects</h1>
                   <div id="ProjectListContainer">
-                    <!-- <div class="JS-Projects" data-id="123">
-                        <div class="projectTitle"><div>Title</div>
-                            <div class="right-side">
-                                <button class="edit">Edit</button>
-                                <button class="xSide">x</button></div>
-                            </div>
-                        </div>
-                    <div class="JS-Projects">
-                         <div class="projectTitle">
-                            <div>Title</div>
-                            <div class="right-side">
-                                <button class="edit">Edit</button>
-                                <button class="xSide">x</button>
-                            </div>
-                        </div>
-                    </div>  -->
                   </div>
                   <form class="form1 hidden">
                     <div class="form-group">
                       <label for="project-title">Project Title:</label>
                       <input type="text" id="project-title" name="project-title" required>
                     </div>
+                    <div class="submitBtn">
                     <button class="submit" type="submit">Submit</button>
+                    </div>
                   </form>
                   <div class="todobtn">
-                    <button class="todoBtnn">Add Project</button>
+                    <button class="todoBtnn">+ Project</button>
                   </div>
             </div>
             <div class="main">
                 <h1 class="middle">Home</h1>
                 <div class="items-box">
-                    <!-- <h1>Project</h1> -->
                       <div id="itemsContainer">
-                      <!-- <div class="items">
-                        <div class="listLeft">
-                            <div class="Title">Task</div>
-                        </div>
-                        <div class="listRight">
-                            <div class="priority">High</div>
-                            <div class="dueDate">6/15/23</div>
-                            <button class="edit">Edit</button>
-                            <button class="xMain">x</button>
-                        </div>
-                    </div> -->
                     </div> 
                     <div class="todobtn">
                         <button class="btn">Add todo</button>
@@ -120,7 +110,9 @@
             </form>
         </div>
         </div>
-
+    <div class="footer">
+        <h1>Productiva</h1>
+    </div>
     <script src="main.js"></script>
 </body>
 </html>

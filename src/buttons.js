@@ -1,11 +1,12 @@
 import { Item } from "./items";
 import { ListCreation } from "./list";
 import { format, compareAsc } from 'date-fns'
+import { functions } from "./edit";
 
 
 export function buttons(){
-
-    const projectz =[];  //array to store projects 
+    
+     const projectz =[];  //array to store projects 
 
     //modal opening and closing 
     const toDoAdd = document.querySelector('.btn');
@@ -17,15 +18,16 @@ export function buttons(){
     const today= document.querySelector('.today');
     const week= document.querySelector('.week');
     const currentList= document.querySelector('.middle');
+    const editSubmit = document.querySelector('.EditSubmit');
+    const addProject = document.querySelector('.todoBtnn');
+    const form = document.querySelector('.form1');
 
     home.addEventListener('click',function(){
         currentList.textContent='Home';
         toDoAdd.disabled = true;
         clearMainDiv();
         projectz.forEach(function(project){
-            project._items.forEach(function(item){
-                itemDisplay(item);
-            });
+            iterate(project);
         });
     });
 
@@ -68,6 +70,7 @@ export function buttons(){
         const month = String(today.getMonth() + 1).padStart(2, '0');
         const day = String(today.getDate()).padStart(2, '0');
         const todayy = `${month}/${day-1}/${year}`;
+
         projectz.forEach(function(project){
             project._items.forEach(function(item){
                 if(item.dueDate==todayy){
@@ -76,6 +79,7 @@ export function buttons(){
             });
         });
     });
+
 
     toDoAdd.disabled = true;
     toDoAdd.addEventListener('click',function(){
@@ -90,11 +94,9 @@ export function buttons(){
         Emodal.classList.toggle('hidden');
     });
 
-    //add project open and closing 
-    const addProject = document.querySelector('.todoBtnn');
-    const form = document.querySelector('.form1');
 
    addProject.addEventListener('click', function() {
+    addhide.classList.add('hidden');
         form.classList.toggle('hidden');
       });
 
@@ -136,9 +138,13 @@ export function buttons(){
         projectDiv.classList.add('projectTitle');
         const Jsprojects = document.createElement('div');
         Jsprojects.classList.add('JS-Projects');
-       Jsprojects.classList.add(`${newlist.listName}`);
+        Jsprojects.classList.add(`${newlist.listName}`);
         projectContainer.append(Jsprojects);
         Jsprojects.append(projectDiv);
+        const imgElement = document.createElement("img");
+        imgElement.classList.add('project-icon');
+        imgElement.src = "../dist/images/format-list-bulleted.svg"; 
+        projectDiv.append(imgElement);
         const projectInputDiv = document.createElement('div');
         projectInputDiv.textContent=newlist.listName;
         projectInputDiv.classList.add('title');
@@ -150,6 +156,12 @@ export function buttons(){
         xSideR.classList.add('xSide');
         xSideR.textContent='x'
         rightSide.append(xSideR);
+
+        // const imgElement = document.createElement("img");
+        // imgElement.classList.add('project-icon');
+        // imgElement.src = "./dist/images/format-list-bulleted.svg"; 
+        // projectDiv.append(imgElement);
+       
 
         //remove projects from side bar 
         const jsproj = document.querySelector(`.${newlist.listName}`);
@@ -181,15 +193,23 @@ export function buttons(){
     }
     
     const updateListItems = function(project) {
-        const itemsContainer = document.getElementById('itemsContainer');
-        itemsContainer.innerHTML=''; // Clear existing items
-   
+        // const itemsContainer = document.getElementById('itemsContainer');
+        // itemsContainer.innerHTML=''; // Clear existing items
+        clearMainDiv();
         // Iterate through the project's items and display them
+        // 
+        // project._items.forEach(item => {
+        //     itemDisplay(item);
+        // });
+        iterate(project);
+        
+    }
+
+    const iterate = function(project){
         project._items.forEach(item => {
             itemDisplay(item);
           });
     }
-
  //////////////////////////////////////////////////////////////////////////////
 
  const ModalSubmit = document.querySelector('.ModalSubmit');
@@ -225,13 +245,12 @@ export function buttons(){
     const currentProject = findProjectByName(newItem.id);
     if (currentProject) {
       currentProject.listPush(newItem);
-    //   newItem.id=currentProject.id;
       itemDisplay(newItem);
     }
  }
 
  const itemDisplay = function(newItem) {
-    console.log(newItem.id2);
+   
     const itemsContainer = document.getElementById('itemsContainer');
     const itemDiv = document.createElement('div');
     itemDiv.classList.add('items');
@@ -275,6 +294,7 @@ export function buttons(){
     });
 
     editButton.addEventListener('click',function(){
+
         const currentProject = findProjectByName(newItem.id);
         if (currentProject) {
             const currentItem = findItemById(newItem.id2);
@@ -333,14 +353,10 @@ const clearMainDiv = function(){
         itemsContainer.innerHTML=''; // Clear existing items
 }
 //sort by date and edit button
+ 
 
 const dateString = function(dueDateValue){
     const date = new Date(dueDateValue);
     return format(date, 'MM/dd/yyyy');
 }
-
-const editSubmit = document.querySelector('.EditSubmit');
-
-
-
 }
